@@ -1,0 +1,26 @@
+{
+	"folders": [
+		{
+			"name": "sdk",
+			"path": ".",
+		},
+	],
+	"settings": {
+		"oxc.path.oxfmt": "node_modules/.bin/oxfmt",
+		"oxc.path.oxlint": "node_modules/.bin/oxlint",
+		"files.exclude": {
+			"**/.git": true,
+			"**/node_modules": true,
+			"**/.temp": true,
+			"**/dist": true,
+			"**/*.tsbuildinfo": true,
+		},
+		"explorer.fileNesting.enabled": true,
+		"explorer.fileNesting.patterns": {
+			"tsconfig.json": "tsconfig.*.json",
+			"package.json": "bun.lock, bunfig.toml, *.bun.plugin.ts, ox*.config.ts, .gitignore, commitlint.config.*, release.config.*js, hypeup.config.*",
+			"vite.config.ts": "*.vite.plugin.ts",
+			"README.md": "LICENSE, *.md",
+		},
+	},
+}

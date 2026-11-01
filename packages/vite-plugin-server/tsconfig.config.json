@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "types": [
+      "bun"
+    ]
+  },
+  "include": [
+    "*.config.ts",
+    "*.config.cjs"
+  ],
+  "files": []
+}

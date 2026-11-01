@@ -1,0 +1,21 @@
+{
+  "sources": {
+    "sigitex": "../templates"
+  },
+  "templates": [
+    "sigitex:project/package",
+    "sigitex:project/monorepo",
+    "sigitex:project/workspace",
+    "sigitex:tool/oxc",
+    "sigitex:tool/commitlint",
+    "sigitex:tool/husky",
+    "sigitex:workflow/mirror",
+    "sigitex:workflow/publish-npm",
+    "sigitex:license/mit"
+  ],
+  "vars": {
+    "repo": "sdk",
+    "copyright": "Sigitex",
+    "license": "MIT"
+  }
+}
