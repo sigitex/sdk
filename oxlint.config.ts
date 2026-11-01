@@ -2,7 +2,7 @@ import { defineConfig } from "oxlint"
 
 export default defineConfig({
   plugins: ["typescript", "unicorn", "oxc"],
-  ignorePatterns: ["**/*.gen.ts", "node_modules/**/*"],
+  ignorePatterns: ["**/*.gen.ts", "**/node_modules/**/*", "**/lint-module-scopes/**/*"],
   categories: {
     correctness: "error",
     suspicious: "warn",
