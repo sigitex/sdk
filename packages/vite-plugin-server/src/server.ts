@@ -12,6 +12,7 @@ export default function server(command: string[]): Plugin {
   let pgid: number | null = null
   let shutdown: Promise<void> | null = null
   let childExit: Promise<void> | null = null
+  let receivedSignal = false
 
   function signalGroup(signal: NodeJS.Signals): boolean {
     if (pgid === null) {
@@ -80,22 +81,29 @@ export default function server(command: string[]): Plugin {
     signalGroup("SIGKILL")
   }
 
-  async function interrupt() {
+  async function stopOnSignal(exitCode: number) {
+    if (receivedSignal) {
+      signalGroup("SIGKILL")
+    }
+    receivedSignal = true
+
     await kill()
     removeHandlers()
-    process.exit(130)
+    process.exit(exitCode)
+  }
+
+  async function interrupt() {
+    await stopOnSignal(130)
   }
 
   async function terminate() {
-    await kill()
-    removeHandlers()
-    process.exit(143)
+    await stopOnSignal(143)
   }
 
   function addHandlers() {
     process.once("exit", killOnExit)
-    process.once("SIGINT", interrupt)
-    process.once("SIGTERM", terminate)
+    process.on("SIGINT", interrupt)
+    process.on("SIGTERM", terminate)
   }
 
   function removeHandlers() {
@@ -120,6 +128,7 @@ export default function server(command: string[]): Plugin {
       child = serverProcess
       pgid = serverProcess.pid ?? null
       shutdown = null
+      receivedSignal = false
       childExit = new Promise<void>((resolve) => {
         serverProcess.once("exit", () => resolve())
         serverProcess.once("error", () => resolve())
